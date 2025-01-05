@@ -4,19 +4,30 @@ let lives = 3;
 let dateAnswered = false;
 
 // Default year range
-let startYear = 2000;
-let endYear = 2100;
+let startYear = 1700;
+let endYear = 2300;
 
-document.getElementById("start-year").addEventListener("input", (event) => {
-  startYear = parseInt(event.target.value, 10);
-  document.getElementById("start-year-display").innerText = startYear;
-  ensureValidYearRange();
+const minSlider = document.getElementById("range-slider-min");
+const maxSlider = document.getElementById("range-slider-max");
+const yearRangeDisplay = document.getElementById("year-range-display");
+
+// Update range display and enforce rules
+minSlider.addEventListener("input", () => {
+  startYear = parseInt(minSlider.value, 10);
+  if (startYear > endYear - 100) {
+    startYear = endYear - 100;
+    minSlider.value = startYear;
+  }
+  updateYearRangeDisplay();
 });
 
-document.getElementById("end-year").addEventListener("input", (event) => {
-  endYear = parseInt(event.target.value, 10);
-  document.getElementById("end-year-display").innerText = endYear;
-  ensureValidYearRange();
+maxSlider.addEventListener("input", () => {
+  endYear = parseInt(maxSlider.value, 10);
+  if (endYear < startYear + 100) {
+    endYear = startYear + 100;
+    maxSlider.value = endYear;
+  }
+  updateYearRangeDisplay();
 });
 
 document.getElementById("generate-date").addEventListener("click", () => {
@@ -69,17 +80,13 @@ function generateRandomDate() {
   return new Date(randomTime);
 }
 
+function updateYearRangeDisplay() {
+  yearRangeDisplay.innerText = `${startYear} - ${endYear}`;
+}
+
 function updateLivesDisplay() {
   const hearts = "❤️ ".repeat(lives) + "🖤 ".repeat(3 - lives);
   document.getElementById("lives").innerText = hearts.trim();
-}
-
-function ensureValidYearRange() {
-  if (startYear > endYear) {
-    endYear = startYear;
-    document.getElementById("end-year").value = startYear;
-    document.getElementById("end-year-display").innerText = startYear;
-  }
 }
 
 function endGame() {

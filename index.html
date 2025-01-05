@@ -7,15 +7,16 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
+    <div class="background"></div>
+    <div class="slider"></div>
+    <div class="container">
     <h1>Guess the Day of the Week</h1>
     <div id="game-setup">
-      <label for="start-year">Start Year: <span id="start-year-display">2000</span></label>
-      <input type="range" id="start-year" min="1900" max="2100" value="2000">
-      
-      <label for="end-year">End Year: <span id="end-year-display">2100</span></label>
-      <input type="range" id="end-year" min="1900" max="2100" value="2100">
-      
+      <label>Year Range: <span id="year-range-display">1700 - 2300</span></label>
+      <div class="range-slider">
+        <input type="range" id="range-slider-min" min="1700" max="2300" step="100" value="1700">
+        <input type="range" id="range-slider-max" min="1700" max="2300" step="100" value="2300">
+      </div>
       <button id="reset-game" class="reset-button">Start New Game</button>
     </div>
     <div id="game-info">
