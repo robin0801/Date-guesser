@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guess the Day Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Guess the Day of the Week</h1>
+    <div id="game-setup">
+      <label for="start-year">Start Year: <span id="start-year-display">2000</span></label>
+      <input type="range" id="start-year" min="1900" max="2100" value="2000">
+      
+      <label for="end-year">End Year: <span id="end-year-display">2100</span></label>
+      <input type="range" id="end-year" min="1900" max="2100" value="2100">
+      
+      <button id="reset-game" class="reset-button">Start New Game</button>
+    </div>
+    <div id="game-info">
+      <p id="random-date" class="highlight">Click "Generate Random Date" to begin!</p>
+      <div class="stats">
+        <p id="streak">🔥 Streak: 0</p>
+        <p id="lives">❤️ ❤️ ❤️</p>
+      </div>
+    </div>
+    <div class="input-section">
+      <button id="generate-date">Generate Random Date</button>
+      <input type="text" id="guess" placeholder="Enter the day of the week">
+      <button id="check-answer">Check Answer</button>
+    </div>
+    <p id="result"></p>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

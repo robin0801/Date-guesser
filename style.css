@@ -1,0 +1,109 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f8ff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .container {
+    background-color: #ffffff;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+  }
+  
+  h1 {
+    color: #007bff;
+    margin-bottom: 20px;
+  }
+  
+  p {
+    font-size: 18px;
+    margin: 10px 0;
+  }
+  
+  button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 5px;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    width: calc(100% - 20px);
+    margin: 10px 0;
+  }
+  
+  .highlight {
+    font-weight: bold;
+    font-size: 20px;
+    color: #333;
+  }
+  
+  .stats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    margin-top: 20px;
+  }
+  
+  #streak {
+    color: #f39c12;
+  }
+  
+  #lives {
+    font-size: 24px;
+    color: red;
+  }
+  
+  .reset-button {
+    background-color: #ff4d4f;
+    margin-top: 20px;
+  }
+  
+  .reset-button:hover {
+    background-color: #e60000;
+  }
+  
+  #result {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+
+  /* Sliders */
+#game-setup {
+    margin-bottom: 20px;
+  }
+  
+  #game-setup label {
+    font-size: 16px;
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  #game-setup input[type="range"] {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
