@@ -7,61 +7,80 @@ let dateAnswered = false;
 let startYear = 1700;
 let endYear = 2300;
 
-const minSlider = document.getElementById("range-slider-min");
-const maxSlider = document.getElementById("range-slider-max");
+const startYearInput = document.getElementById("input-start-year");
+const endYearInput = document.getElementById("input-end-year");
 const yearRangeDisplay = document.getElementById("year-range-display");
+const actionButton = document.getElementById("generate-date");
+const guessInput = document.getElementById("guess");
+const resultDisplay = document.getElementById("result");
+const randomDateDisplay = document.getElementById("random-date");
 
-// Update range display and enforce rules
-minSlider.addEventListener("input", () => {
-  startYear = parseInt(minSlider.value, 10);
-  if (startYear > endYear - 100) {
-    startYear = endYear - 100;
-    minSlider.value = startYear;
+// Validate and update year range
+startYearInput.addEventListener("input", () => {
+  startYear = parseInt(startYearInput.value, 10);
+  if (isNaN(startYear)) startYear = 1700; // Fallback if input is empty or invalid
+  if (startYear > endYear) {
+    startYear = endYear;
+    startYearInput.value = startYear;
   }
   updateYearRangeDisplay();
 });
 
-maxSlider.addEventListener("input", () => {
-  endYear = parseInt(maxSlider.value, 10);
-  if (endYear < startYear + 100) {
-    endYear = startYear + 100;
-    maxSlider.value = endYear;
+endYearInput.addEventListener("input", () => {
+  endYear = parseInt(endYearInput.value, 10);
+  if (isNaN(endYear)) endYear = 2300; // Fallback if input is empty or invalid
+  if (endYear < startYear) {
+    endYear = startYear;
+    endYearInput.value = endYear;
   }
   updateYearRangeDisplay();
 });
 
-document.getElementById("generate-date").addEventListener("click", () => {
-  randomDate = generateRandomDate();
-  document.getElementById("random-date").innerText = `Random Date: ${randomDate.getDate()}/${randomDate.getMonth() + 1}/${randomDate.getFullYear()}`;
-  document.getElementById("result").innerText = "";
+// Handle button clicks
+actionButton.addEventListener("click", () => {
+  if (actionButton.innerText === "Generate Random Date") {
+    generateRandomDate();
+  } else {
+    checkAnswer();
+  }
+});
+
+function generateRandomDate() {
+  randomDate = generateRandomDateHelper();
+  randomDateDisplay.innerText = `Random Date: ${randomDate.getDate()}/${randomDate.getMonth() + 1}/${randomDate.getFullYear()}`;
+  resultDisplay.innerText = "";
+  guessInput.value = ""; // Clear previous guess
   dateAnswered = false;
-});
 
-document.getElementById("check-answer").addEventListener("click", () => {
+  // Switch to "Check Answer" button
+  actionButton.innerText = "Check Answer";
+}
+
+function checkAnswer() {
   if (!randomDate) {
-    document.getElementById("result").innerText = "Please generate a date first!";
+    resultDisplay.innerText = "Please generate a date first!";
     return;
   }
 
   if (dateAnswered) {
-    document.getElementById("result").innerText = "You've already answered this date! Generate a new one.";
-    document.getElementById("result").style.color = "orange";
+    resultDisplay.innerText = "You've already answered this date! Generate a new one.";
+    resultDisplay.style.color = "orange";
     return;
   }
 
-  const guess = document.getElementById("guess").value.trim().toLowerCase();
+  const guess = guessInput.value.trim().toLowerCase();
   const correctDay = randomDate.toLocaleDateString("en-US", { weekday: "long" }).toLowerCase();
 
   if (guess === correctDay) {
     streak++;
     document.getElementById("streak").innerText = `🔥 Streak: ${streak}`;
-    document.getElementById("result").innerText = "Correct! 🎉";
-    document.getElementById("result").style.color = "green";
+    resultDisplay.innerText = "Correct! 🎉";
+    resultDisplay.style.color = "green";
   } else {
     lives--;
     updateLivesDisplay();
-    document.getElementById("result").innerText = `Wrong! The correct day is ${correctDay}.`;
-    document.getElementById("result").style.color = "red";
+    resultDisplay.innerText = `Wrong! The correct day is ${correctDay}.`;
+    resultDisplay.style.color = "red";
 
     if (lives === 0) {
       endGame();
@@ -69,11 +88,12 @@ document.getElementById("check-answer").addEventListener("click", () => {
   }
 
   dateAnswered = true;
-});
 
-document.getElementById("reset-game").addEventListener("click", resetGame);
+  // Switch back to "Generate Random Date" button
+  actionButton.innerText = "Generate Random Date";
+}
 
-function generateRandomDate() {
+function generateRandomDateHelper() {
   const start = new Date(startYear, 0, 1);
   const end = new Date(endYear, 11, 31);
   const randomTime = start.getTime() + Math.random() * (end.getTime() - start.getTime());
@@ -90,9 +110,12 @@ function updateLivesDisplay() {
 }
 
 function endGame() {
-  document.getElementById("result").innerText = "Game Over! 😢 Try again.";
-  document.getElementById("random-date").innerText = "Click 'Start New Game' to set a new year range.";
+  resultDisplay.innerText = "Game Over! 😢 Try again.";
+  randomDateDisplay.innerText = "Click 'Start New Game' to set a new year range.";
+  actionButton.innerText = "Generate Random Date"; // Reset button text
 }
+
+document.getElementById("reset-game").addEventListener("click", resetGame);
 
 function resetGame() {
   streak = 0;
@@ -101,6 +124,8 @@ function resetGame() {
   dateAnswered = false;
   document.getElementById("streak").innerText = "🔥 Streak: 0";
   updateLivesDisplay();
-  document.getElementById("random-date").innerText = "Click 'Generate Random Date' to begin!";
-  document.getElementById("result").innerText = "";
+  randomDateDisplay.innerText = "Click 'Generate Random Date' to begin!";
+  resultDisplay.innerText = "";
+  guessInput.value = "";
+  actionButton.innerText = "Generate Random Date"; // Reset button text
 }

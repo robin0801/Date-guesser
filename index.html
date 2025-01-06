@@ -8,14 +8,13 @@
 </head>
 <body>
     <div class="background"></div>
-    <div class="slider"></div>
     <div class="container">
     <h1>Guess the Day of the Week</h1>
     <div id="game-setup">
       <label>Year Range: <span id="year-range-display">1700 - 2300</span></label>
-      <div class="range-slider">
-        <input type="range" id="range-slider-min" min="1700" max="2300" step="100" value="1700">
-        <input type="range" id="range-slider-max" min="1700" max="2300" step="100" value="2300">
+      <div class="year-inputs">
+        <input type="number" id="input-start-year" value="1700" min="0">
+        <input type="number" id="input-end-year" value="2300" min="0">
       </div>
       <button id="reset-game" class="reset-button">Start New Game</button>
     </div>
@@ -29,7 +28,6 @@
     <div class="input-section">
       <button id="generate-date">Generate Random Date</button>
       <input type="text" id="guess" placeholder="Enter the day of the week">
-      <button id="check-answer">Check Answer</button>
     </div>
     <p id="result"></p>
   </div>
